@@ -9,6 +9,8 @@ if [ ! -d /.composer ]; then
 fi
 
 chmod -R ugo+rw /.composer
+touch /var/www/html/storage/logs/laravel.log
+chmod -R ugo+rw /var/www/html/storage/
 
 if [ $# -gt 0 ]; then
     exec gosu $WWWUSER "$@"
