@@ -33,6 +33,7 @@ class AppSeeder extends Seeder
                 $fed = $this->fedData($row);
                 $mun = $this->municipalityData($row);
                 $set = $this->settlementData($row);
+                $set['federal_entity_id']=$fed['key'];
                 $set['type_id'] = SettlementType::firstOrCreate(['id' => $row['st_id']],['name' => $row['st_name']])->id;
                 $zip = [
                     'zip_code' => $row['z_zip_code'],
@@ -46,7 +47,7 @@ class AppSeeder extends Seeder
                     $federal[$fed['key']]= FederalEntity::firstOrCreate(['key' => $fed['key']],$fed);
 
                 if(!isset($settlements[$set['key']]))
-                    $settlements[$set['key']]= Settlement::firstOrCreate(['key' => $set['key']],$set);
+                    $settlements[$set['key']]= Settlement::firstOrCreate(['key' => $set['key'], 'federal_entity_id' => $fed['key']],$set);
 
                 if(!isset($municipalities[$mun['key']]))
                     $municipalities[$mun['key']]= Municipality::firstOrCreate(['key' => $mun['key']],$mun);
@@ -54,7 +55,7 @@ class AppSeeder extends Seeder
                 if(!isset($zips[$zip['zip_code']]))
                     $zips[$zip['zip_code']] = ZipCode::firstOrCreate(['zip_code' => $zip['zip_code']],$zip);
 
-                $insert = ['zip_code' => $zip['zip_code'], 'settlement' => $set['key']];
+                $insert = ['zip_code' => $zip['zip_code'], 'settlement' => $settlements[$set['key']]->id];
                 DB::table('zip_codes_has_settlements')->upsert($insert,$insert);
             }
         }

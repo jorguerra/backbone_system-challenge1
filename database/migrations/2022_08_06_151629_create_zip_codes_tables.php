@@ -26,10 +26,13 @@ return new class extends Migration
         });
 
         Schema::create('settlements', function (Blueprint $table) {
-            $table->integer('key')->primary();
+            $table->id();
+            $table->integer('key');
             $table->string('name',50);
             $table->enum('zone_type',['Urbano','Rural']);
             $table->foreignIdFor(SettlementType::class, 'type_id');
+            $table->foreignIdFor(FederalEntity::class, 'federal_entity_id');
+            $table->unique(['key','federal_entity_id']);
         });
 
         Schema::create('municipalities', function (Blueprint $table) {

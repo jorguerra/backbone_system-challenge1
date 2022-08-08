@@ -10,11 +10,9 @@ class Settlement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['key','name','zone_type', 'type_id'];
-    protected $hidden   = [ 'pivot', 'type_id'];
+    protected $fillable = ['key','name','zone_type', 'type_id', 'federal_entity_id'];
+    protected $hidden   = [ 'pivot', 'type_id', 'id'];
     public $timestamps  = false;
-    protected $primaryKey = 'key';
-    //protected $keyType = 'string';
 
     public function settlement_type()
     {
