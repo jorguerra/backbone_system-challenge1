@@ -22,7 +22,7 @@ return new class extends Migration
 
         Schema::create('settlement_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name',20)->unique();
+            $table->string('name',80)->unique();
         });
 
         Schema::create('settlements', function (Blueprint $table) {
