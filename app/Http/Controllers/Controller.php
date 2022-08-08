@@ -19,6 +19,7 @@ class Controller extends BaseController
             return Cache::get($code);
 
         $obj = ZipCode::with('federal_entity','municipality','settlements','settlements.settlement_type')->find($code);
+        if(!$obj) abort(404);
         $json= json_encode($obj,JSON_UNESCAPED_UNICODE);
         Cache::put($code,$json, 3600 * 24);
         return $json;
