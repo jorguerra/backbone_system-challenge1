@@ -11,7 +11,7 @@ class Settlement extends Model
     use HasFactory;
 
     protected $fillable = ['key','name','zone_type', 'type_id', 'federal_entity_id'];
-    protected $hidden   = [ 'pivot', 'type_id', 'id'];
+    protected $hidden   = [ 'pivot', 'type_id', 'id', 'federal_entity_id'];
     public $timestamps  = false;
 
     public function settlement_type()
