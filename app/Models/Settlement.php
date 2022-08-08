@@ -25,7 +25,7 @@ class Settlement extends Model
     {
         return Attribute::make(
             get: function ($value){
-                $replace= ['á'=>'a', 'é'=>'e','í'=>'i','ó'=>'o', 'ú'=>'u', 'Á'=>'a', 'É'=>'e','Í'=>'i','Ó'=>'o', 'Ú'=>'u'];
+                $replace= ['á'=>'a', 'é'=>'e','í'=>'i','ó'=>'o', 'ú'=>'u', 'Á'=>'a', 'É'=>'e','Í'=>'i','Ó'=>'o', 'Ú'=>'u', 'ñ' => '?', 'ü' => '?', '°'=> '?'];
                 return strtoupper(str_replace(array_keys($replace), array_values($replace), strtolower($value)));
             }
         );
